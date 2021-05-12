@@ -69,4 +69,4 @@ function methodDontHaveThis() {
     admin.sayHi();
 }
 
-// methodDontHaveThis();
+methodDontHaveThis();
