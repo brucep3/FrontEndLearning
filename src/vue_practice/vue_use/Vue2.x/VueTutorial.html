@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .test {
+            display: flex;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+</head>
+
+<body>
+<div id="app"></div>
+
+<script>
+    // 定义 v-model 示例组件
+    Vue.component('bindData', {
+        template: `
+          <div>
+          <p>this is bindData component!</p>
+          <button @click="handleChange">change input value</button>
+          <input type="text" v-model="inputValue"/>
+          <p>{{ inputValue }}</p>
+          /</div>
+        `,
+        data() {
+            return {
+                inputValue: 'hello'
+            }
+        },
+        methods: {
+            // 点击按钮改变 input 的值
+            handleChange() {
+                this.inputValue = `I'm changed`;
+            }
+        }
+    });
+
+    const app = new Vue({
+        el: '#app',
+        template: `
+    <div>
+      <bindData />
+    </div>
+  `
+    });
+</script>
+
+</body>
+
+</html>
+
+
+

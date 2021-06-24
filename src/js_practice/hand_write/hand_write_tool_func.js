@@ -6,6 +6,7 @@
 
 
 /**
+ * js 里的浅拷贝： Object.assign(targetObj, sourceObj)
  * 深拷贝数组/对象：通过 spread
  * @param {Object | []} obj
  * @returns {Object}
@@ -35,12 +36,5 @@ function deepCopy(obj) {
     }
 }
 
-/**
- * 判断变量是否为数组的4种方式
- * @param arr
- * @returns {boolean}
- */
-function isArray(arr) {
-    return Array.isArray(arr);
-}
+
 
