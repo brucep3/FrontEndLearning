@@ -63,3 +63,6 @@ var quiz_11_2_3 = function () {
         div.append("Hello, world!");
     });
 };
+
+// 11.2 Promise 链
+
