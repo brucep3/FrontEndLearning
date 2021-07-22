@@ -1,4 +1,17 @@
-// 触发更新视图
+/**
+ * 3 个函数
+ * - updateView() : 触发更新视图
+ * - observe(target) : 监听 target 的属性，target 属性变化后会触发更新视图操作
+ * - defineReactive(target, key, value) : 核心函数，实现属性监听
+ * 响应式原理的三个版本
+ * - 监听对象：监听第 1 层
+ * - 深度监听：可以监听 obj1.obj2....objn.val
+ * - 监听数组操作：
+ */
+
+/**
+ * 触发更新视图
+ */
 function updateView() {
     console.log('视图更新')
 }
@@ -13,39 +26,43 @@ const arrProto = Object.create(oldArrayProperty);
         oldArrayProperty[methodName].call(this, ...arguments)
         // Array.prototype.push.call(this, ...arguments)
     }
-})
+});
 
 // 重新定义属性，监听起来
 function defineReactive(target, key, value) {
     // 深度监听
-    observer(value)
+    observer(value);
 
     // 核心 API
     Object.defineProperty(target, key, {
         get() {
-            return value
+            return value;
         },
         set(newValue) {
             if (newValue !== value) {
                 // 深度监听
-                observer(newValue)
+                observer(newValue);
 
                 // 设置新值
                 // 注意，value 一直在闭包中，此处设置完之后，再 get 时也是会获取最新的值
-                value = newValue
+                value = newValue;
 
                 // 触发更新视图
-                updateView()
+                updateView();
             }
         }
-    })
+    });
 }
 
-// 监听对象属性
+/**
+ * 监听对象 target 的属性
+ * @param target
+ * @returns {*}
+ */
 function observer(target) {
     if (typeof target !== 'object' || target === null) {
         // 不是对象或数组
-        return target
+        return target;
     }
 
     // 污染全局的 Array 原型
@@ -55,12 +72,12 @@ function observer(target) {
     // }
 
     if (Array.isArray(target)) {
-        target.__proto__ = arrProto
+        target.__proto__ = arrProto;
     }
 
     // 重新定义各个属性（for in 也可以遍历数组）
     for (let key in target) {
-        defineReactive(target, key, target[key])
+        defineReactive(target, key, target[key]);
     }
 }
 
