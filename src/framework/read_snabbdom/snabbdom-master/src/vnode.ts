@@ -10,12 +10,12 @@ import { Dataset } from "./modules/dataset";
 export type Key = string | number | symbol;
 
 export interface VNode {
-  sel: string | undefined; // selector 的缩写
-  data: VNodeData | undefined; // 下面 VNodeData 接口的内容
+  sel: string | undefined;
+  data: VNodeData | undefined;
   children: Array<VNode | string> | undefined;
-  elm: Node | undefined; // element的缩写，存储了真实的HTMLElement
-  text: string | undefined; // 如果是文本节点，则存储text
-  key: Key | undefined; // 节点的key，在做列表时很有用
+  elm: Node | undefined;
+  text: string | undefined;
+  key: Key | undefined;
 }
 
 export interface VNodeData {
