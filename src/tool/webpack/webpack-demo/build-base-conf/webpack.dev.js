@@ -1,8 +1,8 @@
-const path = require('path')
-const webpack = require('webpack')
-const webpackCommonConf = require('./webpack.common.js')
-const { smart } = require('webpack-merge')
-const { srcPath, distPath } = require('./paths')
+const path = require('path');
+const webpack = require('webpack');
+const webpackCommonConf = require('./webpack.common.js');
+const { smart } = require('webpack-merge');
+const { srcPath, distPath } = require('./paths');
 
 module.exports = smart(webpackCommonConf, {
     mode: 'development',
@@ -11,15 +11,15 @@ module.exports = smart(webpackCommonConf, {
             // 直接引入图片 url
             {
                 test: /\.(png|jpg|jpeg|gif)$/,
-                use: 'file-loader'
-            }
-        ]
+                use: 'file-loader',
+            },
+        ],
     },
     plugins: [
         new webpack.DefinePlugin({
             // window.ENV = 'development'
-            ENV: JSON.stringify('development')
-        })
+            ENV: JSON.stringify('development'),
+        }),
     ],
     devServer: {
         port: 8080,
@@ -37,9 +37,9 @@ module.exports = smart(webpackCommonConf, {
             '/api2': {
                 target: 'http://localhost:3000',
                 pathRewrite: {
-                    '/api2': ''
-                }
-            }
-        }
-    }
-})
+                    '/api2': '',
+                },
+            },
+        },
+    },
+});

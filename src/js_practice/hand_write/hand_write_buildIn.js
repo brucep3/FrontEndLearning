@@ -12,7 +12,7 @@
  * 实现：https://www.cnblogs.com/rubylouvre/archive/2009/09/18/1568794.html
  * @returns {*|trim}
  */
-function trim() {
+function trim () {
     let str = this;
     let left = 0, right = str.length - 1;
     while (str.charAt(left) === " " && left <= right) {
@@ -25,7 +25,7 @@ function trim() {
     return str;
 }
 
-function testStringTrim() {
+function testStringTrim () {
     String.prototype.trim = trim;
 
     // 测试
@@ -34,7 +34,6 @@ function testStringTrim() {
 
 // testStringTrim();
 
-// 手写 JSON.stringfy
 /**
  * 手写 JSON.stringfy
  * 要点：
@@ -42,22 +41,22 @@ function testStringTrim() {
  * 2、递归
  * 3、借用 Object.prototype.toString
  */
-function handWriteJsonStringfy() {
-    function myJsonStringfy(jsonObj) {
+function handWriteJsonStringfy () {
+    function myJsonStringfy (jsonObj) {
 
     }
 
-    function bindJsonStringfy() {
+    function bindJsonStringfy () {
         window.JSON.stringify = myJsonStringfy;
     }
 
-    function testMyJsonStringfy() {
+    function testMyJsonStringfy () {
         bindJsonStringfy();
         let testCases = [];
         testCases.push(
             {
-                a: "11"
-            }
+                a: "11",
+            },
         );
         for (const testCase of testCases) {
             console.log(JSON.stringify(testCase));
@@ -67,24 +66,57 @@ function handWriteJsonStringfy() {
 }
 
 // 手写 Json.parse
-function handWriteJsonParse() {
+function handWriteJsonParse () {
 
 }
-
 
 // 实现 Array.isArray
 /**
  * 实现 Array.isArray(obj)
  */
-function implIsArray() {
+function isArrayImpl () {
     /**
      * 判断变量是否为数组的4种方式
      * @param arr
      * @returns {boolean}
      */
-    function isArray(arr) {
+    function isArray (arr) {
         return Array.isArray(arr);
     }
 }
 
+// 拍平数组 -> build-in
+/**
+ *
+ */
+const flatArr = () => {
+    const reduceFlat = function () {
+
+    };
+
+};
+
+// 实现 instanceOf -> build-in
+const instanceOfImpl = () => {
+
+};
+
+// call, apply, bind -> build-in
+const callImpl = () => {
+
+};
+
+const applyImpl = () => {
+
+};
+
+const bindImpl = () => {
+
+};
+
+// Promise -> build-in
+
+// LRU Cache -> lc
+
+// LFU Cache
 

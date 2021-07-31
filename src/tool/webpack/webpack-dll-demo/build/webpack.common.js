@@ -16,8 +16,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(srcPath, 'index.html'),
-            filename: 'index.html'
+            template: path.join(srcPath, 'promise_demo.html'),
+            filename: 'promise_demo.html'
         })
     ]
 }

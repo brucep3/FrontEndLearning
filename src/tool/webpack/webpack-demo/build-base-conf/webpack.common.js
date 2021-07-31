@@ -1,6 +1,6 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { srcPath, distPath } = require('./paths')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { srcPath, distPath } = require('./paths');
 
 module.exports = {
     entry: path.join(srcPath, 'index'),
@@ -10,7 +10,7 @@ module.exports = {
                 test: /\.js$/,
                 loader: ['babel-loader'],
                 include: srcPath,
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
             // {
             //     test: /\.vue$/,
@@ -25,19 +25,19 @@ module.exports = {
             {
                 test: /\.css$/,
                 // loader 的执行顺序是：从后往前
-                loader: ['style-loader', 'css-loader', 'postcss-loader'] // 加了 postcss
+                loader: ['style-loader', 'css-loader', 'postcss-loader'], // 加了 postcss
             },
             {
                 test: /\.less$/,
                 // 增加 'less-loader' ，注意顺序
-                loader: ['style-loader', 'css-loader', 'less-loader']
-            }
-        ]
+                loader: ['style-loader', 'css-loader', 'less-loader'],
+            },
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(srcPath, 'index.html'),
-            filename: 'index.html'
-        })
-    ]
-}
+            template: path.join(srcPath, 'promise_demo.html'),
+            filename: 'promise_demo.html',
+        }),
+    ],
+};

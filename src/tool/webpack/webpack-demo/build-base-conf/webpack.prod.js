@@ -1,9 +1,9 @@
-const path = require('path')
-const webpack = require('webpack')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const webpackCommonConf = require('./webpack.common.js')
-const { smart } = require('webpack-merge')
-const { srcPath, distPath } = require('./paths')
+const path = require('path');
+const webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpackCommonConf = require('./webpack.common.js');
+const { smart } = require('webpack-merge');
+const { srcPath, distPath } = require('./paths');
 
 module.exports = smart(webpackCommonConf, {
     mode: 'production',
@@ -29,16 +29,16 @@ module.exports = smart(webpackCommonConf, {
 
                         // 设置图片的 cdn 地址（也可以统一在外面的 output 中设置，那将作用于所有静态资源）
                         // publicPath: 'http://cdn.abc.com'
-                    }
-                }
+                    },
+                },
             },
-        ]
+        ],
     },
     plugins: [
         new CleanWebpackPlugin(), // 会默认清空 output.path 文件夹
         new webpack.DefinePlugin({
             // window.ENV = 'production'
-            ENV: JSON.stringify('production')
-        })
-    ]
-})
+            ENV: JSON.stringify('production'),
+        }),
+    ],
+});

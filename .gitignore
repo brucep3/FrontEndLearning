@@ -1,1 +1,4 @@
 .idea
+/src/tool/webpack/webpack-dll-demo/dist/
+/src/tool/webpack/webpack-demo/dist/
+/src/tool/webpack/webpack-demo/node_modules/
