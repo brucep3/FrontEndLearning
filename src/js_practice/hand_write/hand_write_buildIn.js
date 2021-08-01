@@ -200,3 +200,8 @@ const myBind = () => {
 // 5
 // LFU Cache
 
+// 手写 new
+
+// 手写原生 ajax
+
+
