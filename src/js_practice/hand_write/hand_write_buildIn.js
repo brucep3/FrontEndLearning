@@ -85,38 +85,118 @@ function isArrayImpl () {
     }
 }
 
-// 拍平数组 -> build-in
 /**
+ * TODO: 支持传入层数 和 迭代解
  *
+ * 拍平数组
  */
 const flatArr = () => {
-    const reduceFlat = function () {
+    /**
+     * Solution: 递归
+     * @param arr
+     * @returns {*[]}
+     */
+    const reduceFlat = function (arr) {
+        const res = [];
+        for (const el of arr) {
+            if (Array.isArray(el)) res.push(...reduceFlat(el));
+            else res.push(el);
+        }
 
+        return res;
     };
 
+    const testByCase = (func) => {
+        const case1 = [1, 2, [3, 4, 5, 6, [5, 6, 9, 9]], '7'];
+
+        console.log(func(case1));
+    };
+
+    [reduceFlat].forEach(
+        (func) => {
+            testByCase(func);
+        },
+    );
 };
 
-// 实现 instanceOf -> build-in
+// flatArr();
+
+/**
+ * 实现 instanceof
+ * 用法： object instanceof constructor
+ *
+ * 检测构造函数 constructor 是否在 obj 的原型链上
+ *
+ * 检测步骤：
+ * 1. 如果 Class 有静态方法 Symbol.hasInstance，那就直接调用这个方法
+ * 2. 使用 obj instanceOf Class 检查 Class.prototype 是否等于 obj 的原型链中的原型之一
+ */
 const instanceOfImpl = () => {
 
+    /**
+     * 1. Class[Symbol.hasInstance](obj)
+     * 2. obj.__proto__ === class.prototype
+     * @param obj
+     * @param cls
+     * @returns {boolean|*}
+     */
+    const instanceOf = (obj, cls) => {
+        if (cls[Symbol.hasInstance]) return cls[Symbol.hasInstance](obj);
+
+        let temp = obj,
+            classProtoType = cls.prototype;
+
+        while (temp.__proto__) {
+            temp = temp.__proto__;
+            if (temp === classProtoType) return true;
+        }
+
+        return false;
+    };
+
+    // 测试
+    const testByCase = (func) => {
+        console.log(func({}, Object));
+    };
+
+    [instanceOf].forEach(
+        (func) => {
+            testByCase(func);
+        },
+    );
 };
 
-// call, apply, bind -> build-in
-const callImpl = () => {
+// instanceOfImpl();
+
+/**
+ * 1
+ * call
+ */
+const myCall = () => {
 
 };
 
-const applyImpl = () => {
+/**
+ * 2
+ * apply
+ */
+const myApply = () => {
 
 };
 
-const bindImpl = () => {
+/**
+ * 3
+ * bind
+ */
+const myBind = () => {
 
 };
 
 // Promise -> build-in
 
+// 4
 // LRU Cache -> lc
 
+// 5
 // LFU Cache
 

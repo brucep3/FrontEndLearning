@@ -5,10 +5,10 @@
  */
 
 
-function example() {
+function example () {
     let user = {};
 
-    function sayHi() {
+    function sayHi () {
         console.log("Hello!")
     }
 
@@ -21,11 +21,11 @@ example();
 /**
  * 对象里函数简写
  */
-function methodShorthand() {
+function methodShorthand () {
     let user = {
-        sayHi() {
+        sayHi () {
             console.log("Hello!")
-        }
+        },
     }
     user.sayHi();
 }
@@ -35,14 +35,14 @@ methodShorthand();
 /**
  * 方法中的 “this"
  */
-function methodHasThis() {
+function methodHasThis () {
     let user = {
         name: "John",
         age: 30,
 
-        sayHi() {
+        sayHi () {
             console.log(this.name);
-        }
+        },
     }
 
     user.sayHi();
@@ -53,14 +53,14 @@ methodHasThis();
 /**
  * 不使用 "this"，使用对象名：变量可能会被修改
  */
-function methodDontHaveThis() {
+function methodDontHaveThis () {
     let user = {
         name: "John",
         age: 30,
 
-        sayHi() {
+        sayHi () {
             console.log(user.name);
-        }
+        },
     };
 
     let admin = user;

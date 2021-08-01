@@ -38,6 +38,7 @@ function deepCopy (obj) {
 // 以下面试手写题参考自：https://www.zhihu.com/people/codermagefox/posts
 
 /**
+ * TODO: V3 和 V4
  * Depp clone （深拷贝）
  * Ref: https://cloud.tencent.com/developer/article/1497418
  *
@@ -51,7 +52,7 @@ function deepCopy (obj) {
  * - V1 序列化与反序列化
  * - V2 拷贝对象和数组 (推荐）
  * - V3 解决循环引用
- * - V4
+ * - V4 支持函数拷贝和各种内置对象和类型
  * @param target
  */
 const deepClone = (target) => {
@@ -126,38 +127,189 @@ const deepClone = (target) => {
 
 // deepClone();
 
-//
 /**
  * 柯里化 add 函数，使得 add(1)(2)(3) 成立
- * 做法：迭代 （类似拍平数组，将参数拍平）
- * 相关知识点：
+ * 相关知识点：柯里化
+ *
+ * Solution: 迭代 （类似拍平数组，将参数拍平）
+ *
+ * 版本
+ * V1: 仅支持 add(1)(2)(3)
+ * V2 (currying，推荐): 支持传入参数累计达到 k 个时（k === 3) , 得到结果
+ * V3: 支持任意次数任意多参数调用（类型转换）
+ * V4: 支持任意次数任意多参数调用（最后再调用一次）
  */
 const curryingAdd = () => {
+    /**
+     * v1 : 仅支持 add(1)(2)(3)
+     * @param x
+     * @returns {function(*): function(*): *}
+     */
+    const curryingAddV1 = function (x) {
+        return function (y) {
+            return function (z) {
+                return x + y + z;
+            }
+        };
+    };
 
+    /**
+     * V2 (currying): 支持传入参数累计达到 k 个时（k === 3) , 得到结果
+     */
+    const curryingAddV2 = (function () {
+        const add = function (x, y, z) {
+            return x + y + z;
+        };
+
+        // How to use: const curriedAdd = curry(add);
+        const curry = function curry (func) {
+            // return decorated function
+            return function curried (...args) {
+                if (args.length >= func.length) {
+                    return func.apply(this, args);
+                    // args.length < func.length
+                } else {
+                    return function pass (...args2) {
+                        return curried.apply(this, args.concat(args2));
+                    };
+                }
+            };
+        };
+
+        return curry(add);
+    })();
+
+    /**
+     * V3: 支持任意次数任意多参数调用
+     * Solution: 闭包 + 类型转换
+     */
+    const curryingAddV3 = (() => {
+        const add = function (...args) {
+            // 闭包
+            let total = args.reduce(
+                (acc, val) => acc + val,
+                0,
+            );
+
+            function fn (...args2) {
+                total += args2.reduce(
+                    (acc, val) => acc + val,
+                    0,
+                );
+                return fn;
+            }
+
+            fn.toString = () => "" + total;
+            fn.valueOf = () => total;
+
+            return fn;
+        };
+
+        return add;
+    })();
+
+    // console.log(curryingAddV3(3, 2, 3)(2, 1, 2)(1) + 0);
+
+    /**
+     * V4: 支持任意次数任意多参数调用（最后再调用一次）
+     */
+    const curryingAddV4 = (() => {
+        function add (...args) {
+            let sum = args.reduce((acc, cur) => acc + cur);
+            return function (...nextArgs) {
+                return nextArgs.length ? add(sum, ...nextArgs) : sum;
+            }
+        }
+
+        return add;
+    })();
+
+    // console.log(curryingAddV4(1, 2, 3)(4, 5)());
+
+    /**
+     * 测试
+     * @param func
+     */
+    const testCurryingAdd = (func) => {
+        // Test Case 1. add(1)(2)(3)
+        console.log(func(3)(2)(1));
+
+        // Test Case 2. 任意参数
+        // console.log(curriedAdd(1)(2)(3)(6)(8)(9));
+    };
+
+    [
+        curryingAddV1,
+        curryingAddV2,
+        curryingAddV3,
+        curryingAddV4,
+    ].forEach((val) => {
+        testCurryingAdd(val);
+    });
 };
 
-curryingAdd();
+// curryingAdd();
 
-// 防抖
 /**
  * 防抖：当事件触发n秒后再执行回调，若n秒内再次触发，则重新计时
- * 实现方法：装饰器 + 计时器
  */
 const debounce = () => {
+    /**
+     * Solution: 装饰器 + 计时器
+     * @param func
+     * @param delay
+     * @returns {(function(...[*]=): void)|*}
+     */
+    const debounceFunc = (func, delay) => {
+        let timer = null;
 
+        return function (...args) {
+            clearTimeout(timer);
+            timer = setTimeout(
+                () => func.apply(this, args),
+                delay);
+        };
+    };
+
+    // TODO: test
 };
 
-//
 /**
  * 节流：触发事件后立马执行，但在n秒内再次触发不会执行，n秒后才会执行。(
  * 规定一个单位时间，在这个单位时间内，只能有一次触发事件的回调函数执行，如果在同一个单位时间内
  * 某事件被触发多次，只有一次能生效。)
- * 实现方法：装饰器 + timeout
  */
 const throttle = () => {
+    /**
+     * Solution: 装饰器 + timeout
+     * @param func
+     * @param delay
+     * @returns {(function(...[*]=): void)|*}
+     */
+    const throttleFunc = (func, delay) => {
+        let timeout = true;
 
+        return function (...args) {
+            if (!timeout) return;
+
+            timeout = false;
+            setTimeout(() => {
+                func.apply(this, args);
+                timeout = true;
+            }, delay);
+        };
+    };
+
+    const testThrottle = () => {
+        const throttledFunc = throttleFunc(() => console.log(1), 1000);
+        throttledFunc(); // 1000 ms 后执行
+        throttledFunc(); // 不执行
+    };
+
+    testThrottle();
 };
 
+// 9
 // 继承的 n 种方式
 
 // EventEmitter
@@ -167,8 +319,37 @@ const throttle = () => {
 // 缓存函数
 
 // 懒加载
+// 8
 
 // 数组三等分 -> lc-1013. 将数组分成和相等的三个部分
 
-// 千位分隔符 -> https://leetcode-cn.com/problems/thousand-separator/
+/**
+ * 数字保留两位小数，同时设置千位分隔符为 “,"
+ */
+const formatNum = () => {
+    /**
+     * 数字保留两位小数，同时设置千位分隔符为 “,"
+     * @param num
+     * @returns {string}
+     */
+    const formatNum = (num) => {
+        let [int, fraction] = ("" + num).split(".");
+
+        const arr = [];
+        for (let i = int.length; i > 0; i -= 3) {
+            arr.push(int.slice(i - 3 >= 0 ? i - 3 : 0, i));
+        }
+        const resInt = arr.reverse().join(",");
+
+        if (!fraction) return resInt + "." + "00";
+        if (fraction.length < 2) return resInt + "." + fraction + "0";
+        return resInt + "." + fraction.slice(0, 2);
+    };
+
+    console.log(formatNum(128381368.11224));
+    console.log(formatNum(128381368.1));
+    console.log(formatNum(128381368.));
+};
+
+// formatNum();
 
