@@ -1,6 +1,16 @@
 // noinspection DuplicatedCode
 
 /**
+ * @Description
+ *
+ * async / await 基本使用
+ * async / await 和 Promise 的关系
+ *
+ * @Author PAN Bruce
+ * @Date 2021/8/3
+ */
+
+/**
  * async / await 基本使用
  */
 const testAsyncAwaitBasicUse = () => {
