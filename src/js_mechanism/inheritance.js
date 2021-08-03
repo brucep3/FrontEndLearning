@@ -8,6 +8,7 @@
  * - 原型式继承
  * - 寄生式继承
  * - 寄生组合式继承
+ * - extends 继承
  *
  * 参考
  * - [JavaScript深入之继承的多种方式和优缺点 · Issue #16 · mqyqingfeng/Bl
