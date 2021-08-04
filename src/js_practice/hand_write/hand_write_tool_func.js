@@ -110,11 +110,11 @@ const deepClone = (target) => {
         const target3 = {
             field1: 1,
             field2: undefined,
-            field3: 'ConardLi',
+            field3: "ConardLi",
             field4: {
-                child: 'child',
+                child: "child",
                 child2: {
-                    child2: 'child2',
+                    child2: "child2",
                 },
             },
         };
@@ -308,9 +308,6 @@ const throttle = () => {
 
     testThrottle();
 };
-
-// 9
-// 继承的 n 种方式
 
 // EventEmitter
 
