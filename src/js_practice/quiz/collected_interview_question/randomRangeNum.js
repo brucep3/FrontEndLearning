@@ -30,7 +30,7 @@ const randomRangeNum = function (max, min, n) {
             let res = pool[targetIdx] + min;
             swap(pool, targetIdx, range);
             return res;
-        }
+        },
     );
 
     return resArr;

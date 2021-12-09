@@ -4,7 +4,7 @@
  * @Description
  *
  * JavaScript 的 继承 (inheritance)
- * - extends 继承 (ES6)
+ * - extends 继承 (ES6 / ES5)
  * - 原型链继承（区别于原型式继承）
  * - 构造函数继承
  * - 组合继承
@@ -185,8 +185,12 @@ const extendsInheritance = () => {
 
 /**
  * 原型链继承
+ * Solution: 父类的实例作为子类的 prototype
+ * Pros: 父类方法可以复用
+ * Cons: (1) 父类的引用属性会被所有子类实例共享；
+ * (2) 子类构造实例时不能向父类传递参数
  */
-const prototypeChainInheritance = () => {
+const protoChainInheritance = () => {
     // 父类
     function Parent () {
         this.name = "kevin";
@@ -201,21 +205,77 @@ const prototypeChainInheritance = () => {
 
     }
 
-    // 子类的原型
+    // 子类的 prototype : Child.prototype.__proto__ = Parent.prototype
     Child.prototype = new Parent();
+    Child.prototype.constructor = Child;
 
+    // child1.__proto__.__proto__ = Parent.prototype
     const child1 = new Child();
 
-    console.log(child1.getName()) // kevin
+    console.log(child1.sayName()); // kevin
+
+    console.log(child1.__proto__.__proto__ === Parent.prototype);
 };
 
-// prototypeChainInheritance();
+// protoChainInheritance();
 
-// 构造函数继承
+/**
+ * 构造函数继承
+ * Solution:
+ * Pros:
+ * Cons:
+ */
+const constructorInheritance = () => {
+
+};
 
 // 组合继承
 
-// 原型式继承
+/**
+ * 原型式继承
+ * 模拟 ES5 Object.create(prototype)
+ * Solution: new
+ * Pros: 父类方法可以复用
+ * Cons: (1) 父类的引用属性会被所有子类实例共享；
+ * （2）子类构建实例时不能向父类传递参数；
+ */
+const prototypeInheritance = () => {
+    /**
+     * obj.__proto__ === Parent.prototype
+     * 模拟 ES5 Object.create
+     * @param Parent
+     * @returns {F}
+     */
+    function object (Parent) {
+        function F () {
+
+        }
+
+        F.prototype = Parent;
+
+        return new F();
+    }
+
+    const testPrototypeInheritance = () => {
+        var person = {
+            name: "kevin",
+            friends: ["daisy", "kelly"],
+        }
+
+        var person1 = object(person);
+        var person2 = object(person);
+
+        person1.name = "person1";
+        console.log(person2.name); // kevin
+
+        person1.friends.push("taylor");
+        console.log(person2.friends); // ["daisy", "kelly", "taylor"]
+    };
+
+    testPrototypeInheritance();
+};
+
+// prototypeInheritance();
 
 // 寄生式继承
 

@@ -10,15 +10,23 @@
     - this 测试
 
 - js 练习
-    - 自动化测试
+    - 测试
+        - 自动化测试
     - 练习题
         - 《现代 JavaScript 教程》 练习题
-    - 手写算法
-        - 手写内置算法
-        - 手写工具算法
-
+        - 面试题
+    - 手写内置方法
+    - 手写工具方法
+    - 设计模式
+        - 观察者模式（TODO）
+        - 发布订阅模式（TODO）
+        - 策略模式（TODO）
+        - 代理模式（TODO）
+        - 装饰器模式（TODO）
+        - 模板方法模式（Template Method Pattern， TODO）
+        - 迭代器模式（Iterator Pattern ，TODO）
 - 框架
-    - Vue 练习
+    - Vue
         - Vue 使用
         - Vue 实现
         - Vue 原理

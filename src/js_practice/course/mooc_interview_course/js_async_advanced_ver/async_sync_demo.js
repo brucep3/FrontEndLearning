@@ -5,6 +5,9 @@
  * @Description
  *
  * 异步和同步
+ * - 异步执行和同步执行的对比
+ * - 异步的本质
+ * -
  *
  * @Author PAN Bruce
  * @Date 2021/8/2
@@ -63,7 +66,9 @@ const test3 = () => {
 
 // test3();
 
-// 增加异步函数
+/**
+ * 增加异步函数
+ */
 const test4 = () => {
     async function async1 () {
         console.log("async1 start"); // 2
@@ -75,8 +80,8 @@ const test4 = () => {
 
         await async3();
 
-            // 下面一行异步回调
-            console.log("async1 end 2"); // 7
+        // 下面一行异步回调
+        console.log("async1 end 2"); // 7
     }
 
     async function async2 () {
